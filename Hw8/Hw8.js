@@ -120,7 +120,7 @@ const calcModule = (function () {
       return this;
   }
   function exponeValue(val) {
-      res = Math.pow(x, val);
+      res = Math.pow(res, val);
       return this;
   }
   function getValue() {
