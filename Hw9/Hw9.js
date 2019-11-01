@@ -14,21 +14,27 @@ var earth = new PlanetWithSatellite('earth', 'moon');
 earth.getName(); // 'Planet name is earth. The satellite is moon’
  */
 
-function Planet(name) {
-  this.name = name;
-  this.getName = function () {
+class Planet  {
+  constructor(name){
+    this.name = name;
+  }
+    getName() {
       return 'Planet name is ' + this.name;
   }
 }
 
-function PlanetWithSatellite ( name, satelliteName) {
-  Planet.apply(this, arguments); 
-  this.getName = function () {
-    return 'Planet name is ' + this.name + '. ' + 'The satellite is ' + satelliteName;
+class PlanetWithSatellite extends Planet {
+ constructor(name,satelliteName ){
+   super(name)
+  this.satelliteName = satelliteName;
+ }
+ 
+  getName() {
+    return super.getName() + '. ' + 'The satellite is ' + this.satelliteName;
   }
 }
 let earth = new PlanetWithSatellite('earth', 'moon');
-console.log(earth.getName());
+console.log(earth.getName()); 
 
 /*2. Создайте класс “Здание” (пусть у него будет имя, количество этажей, метод “получить количество этажей” и метод “установить количество этажей”).
 Создайте наследников этого класса:
@@ -59,8 +65,8 @@ console.log(earth.getName());
    }
    getFloors() {
      return {
-       этажи: this.countFloors,
-       всегоКвартир: this.countFloors * this.countFlats
+       этажи: super.getFloors(),
+       всегоКвартир: super.getFloors() * this.countFlats
      }
    }
  }
@@ -72,8 +78,8 @@ console.log(earth.getName());
   }
   getFloors() {
     return {
-      этажи: this.countFloors,
-      всегоМагазинов: this.countFloors * this.countStores,
+      этажи: super.getFloors(),
+      всегоМагазинов: super.getFloors() * this.countStores,
     }
   }
 }
@@ -103,21 +109,21 @@ class OfficeFurniture extends Furniture {
     super(...restProps);
     this.countTables = countTables
   }
-  
+  getInfo() {
+    return super.getInfo() + ' ' + 'Количество комп столов ' + this.countTables
+   }
 }
-OfficeFurniture.prototype.getInfo = function() {
- return Furniture.prototype.getInfo.call(this) + ' ' + 'Количество комп столов ' + this.countTables
-}
+
 class HomeFurniture extends Furniture {
   constructor(isBookcases,...restProps){
     super(...restProps);
     this.isBookcases = isBookcases
   }
-  
+  getInfo() {
+    return super.getInfo() + ' ' + 'Наличие книжных шкафов ' + this.isBookcases
+   }
 }
-HomeFurniture.prototype.getInfo = function() {
-  return Furniture.prototype.getInfo.call(this) + ' ' + 'Наличие книжных шкафов ' + this.isBookcases
- }
+
 
 const testOffFurn = new OfficeFurniture(2,'мебель',300);
 const testHomeFurn = new HomeFurniture(true,'мебель',500);
@@ -147,17 +153,18 @@ User.prototype.getInfo = function() {
 class Admin extends User {
   constructor(name,date,superAdmin){
     super(name,date);
-    this.superAdmin = superAdmin
+    this._localSuperAdmin = superAdmin
   }
+  getAdmin() {
+     
+   return this._localSuperAdmin
+  }
+  getInfo () {
   
+    return super.getInfo() + ' superAdmin: ' + this._localSuperAdmin;
+  };
  }
 
- Admin.prototype.getInfo = function() {
-  
-    return User.prototype.getInfo.call(this) + ' superAdmin: ' + this.superAdmin;
-  
-  };
-  
   const testAdmin = new Admin('Вася','16 june',true);
   console.log(testAdmin.getInfo())
 
@@ -165,10 +172,14 @@ class Admin extends User {
 
         constructor(name, date) {
             super(name, date);
-            this.validDate = new Date(date.getTime());
-            this.validDate.setDate(date.getDate() + 7);
-        }
+            this.validDate = date + 7;
+          }
+        getInfo() {
+          return super.getInfo() + 'validDate' + validDate 
+        }  
     }
-    let testGuest = new Guest('Гость', new Date);
+    let testGuest = new Guest('Гость', 16);
     console.log(testGuest);
+
+
     
