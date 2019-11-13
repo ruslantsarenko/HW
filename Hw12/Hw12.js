@@ -1,52 +1,77 @@
 
-class Service {
-  constructor () {
-      this.key = 'c3e52c407cfe4d5eab37e580249b2e9f';
-     
-  }
-  sendRequest(keyWord, sort) {
-      
-      return fetch(`https://newsapi.org/v2/everything?q=${keyWord}&${sort}&apiKey=${this.key}`)
-          .then((response) => { return response.json()})
-          .catch((err) => { console.error('Моя ошибка - ', err) })
-  }
-  
-}
 
+class Service {
+    constructor () {
+        this.key = 'c3e52c407cfe4d5eab37e580249b2e9f';
+        this.country = '';
+        this.category = '';
+    }
+    sendRequest({country='', category=''}) {
+        if (country !== '') {
+            this.country = country;
+        }
+        if (category !== '') {
+            this.category = category;
+        }
+
+        return fetch(`https://newsapi.org/v2/top-headlines?country=${this.country}&category=${this.category}&apiKey=${this.key}`)
+            .then((response) => { return response.json()})
+            .catch((err) => { console.error('Моя ошибка - ', err) })
+    }
+    sendRequestKey(keyWord, sort) {
+      
+        return fetch(`https://newsapi.org/v2/everything?q=${keyWord}&${sort}&apiKey=${this.key}`)
+            .then((response) => { return response.json()})
+            .catch((err) => { console.error('Моя ошибка - ', err) })
+    }
+}
 class UI {
   constructor () {
       this.service = new Service();
       this.layout = new LayoutNews();
       this.keyWord = document.querySelector('#search');
+      this.sorting = document.querySelector('#sorting')
   }
   init() {
       const country = document.querySelector('#country');
       const category = document.querySelector('#category');
-      const sortPopular = document.querySelector('#popular')
+      
      
-      this.keyWord.addEventListener('change', this.keyWordSearch.bind(this))
-      sortPopular.addEventListener('click', this.sort.bind(this))
+      country.addEventListener('change', this.handleSelect.bind(this))
+        category.addEventListener('change', this.handleSelect.bind(this))
+      this.keyWord.addEventListener('input', this.keyWordSearch.bind(this))
+      this.sorting.addEventListener('change', this.sort.bind(this))
+      
+   
   }
   
+  handleSelect(event) {
+
+    const {id: selectName, value: selectValue} = event.target;
+    this.service.sendRequest({[selectName]: selectValue})
+        .then((response) => {
+            this.layout.renderAll(response.articles)
+        })
+}
+  
+keyWordSearch(event) {
+    this.service.sendRequestKey(event.target.value, undefined)
+        .then((response) => {
+        this.layout.renderAll(response.articles)
+    })
+}
+
+
   sort(event) {
-     if (event.target.checked) {
-        
-      this.service.sendRequest(this.keyWord.value, 'sortBy=popularity')
-      .then((response) => {
-      this.layout.renderAll(response.articles)
-          })
+      if (event.target === this.sorting) {
+        this.service.sendRequestKey(this.keyWord.value, 'sortBy=popularity')
+        .then((response) => {
+        this.layout.renderAll(response.articles)
+    })
       }
+     
   }
-      
-      
-  
-  keyWordSearch(event) {
-      this.service.sendRequest(event.target.value, undefined)
-          .then((response) => {
-          this.layout.renderAll(response.articles)
-      })
-  }
- 
+   
 }
 
 class LayoutNews {

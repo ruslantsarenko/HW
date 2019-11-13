@@ -6,14 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <style> 
-            #popular {
-               
-                position: initial; 
-                opacity: initial; 
-                pointer-events: initial;
-            }
-            </style>
+    <style>
+    .sort-wrap{
+        padding: 10px;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .row .col.m6{
+    flex-wrap: wrap;
+    align-items: stretch;
+    display: flex;
+}
+    </style>
 </head>
 <body>
     
@@ -50,14 +56,19 @@
                     <div class="input-field col s12">
                         <input placeholder="Search news" id="search" type="text">
                         <label for="search">Search</label>
-                        <div>
-                                <input type="checkbox" id="popular" name="popular">
-                                <label for="popular">popular</label>
-                            </div>
+                        
                     </div>
                     
                 </div>
-                
+                <div class="input-field col s12 sort-wrap">
+                    <select name="sorting" id="sorting">
+                        <option value="" disabled selected>Select to sort the result</option>
+                        <option value="popularity" id="popularity">Popularity</option>
+                        
+                    </select>
+
+                    <label>Sorting</label>
+                </div>
             </form>
         </div>
     </div>
