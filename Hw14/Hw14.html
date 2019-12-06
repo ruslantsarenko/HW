@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Whack a mole! <span class="score">0</span></h1>
+
+    <div class="menu">
+      <label class="menu-name">
+        имя:
+        <input type="text" id="name" />
+      </label>
+      <span class="warning"><---Введите имя</span>
+      <div class="difficulty">
+        Выберите уровень сложности:
+        <input
+          class="difficulcy-radio easy"
+          type="radio"
+          name="difficulty-lvl"
+          value="easy"
+          checked="checked"
+        />easy
+        <input
+          class="difficulcy-radio middle"
+          type="radio"
+          name="difficulty-lvl"
+          value="middle"
+        />middle
+        <input
+          class="difficulcy-radio hard"
+          type="radio"
+          name="difficulty-lvl"
+          value="hard"
+        />hard
+      </div>
+      <button class="start btn">Start game!</button>
+      <button class="results btn">Таблица результатов</button>
+    </div>
+    <div class="game">
+      <div class="hole hole1">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole2">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole3">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole4">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole5">
+        <div class="mole"></div>
+      </div>
+      <div class="hole hole6">
+        <div class="mole"></div>
+      </div>
+    </div>
+    <div class="popup-overlay"></div>
+    <div class="popup">
+      <div class="popup-result">
+        <span class="popup-result-capt">Total score:</span>
+        <span class="popup-count-catch"></span>
+        <span class="popup-between">/</span>
+        <span class="popup-count-all"></span>
+      </div>
+
+      <button class="popup-close btn">close</button>
+    </div>
+    <div class="table-results-wrap">
+      <button class="table-close btn">close</button>
+    </div>
+    <script src="Hw14.js"></script>
+  </body>
+</html>
