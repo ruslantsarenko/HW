@@ -1,0 +1,154 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  background: #ffc600;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Amatic SC", cursive;
+}
+
+h1 {
+  text-align: center;
+  font-size: 10rem;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.game {
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.menu {
+  text-align: center;
+}
+.menu-name {
+  display: inline-block;
+  text-transform: uppercase;
+  margin: 20px 0;
+  font-size: 30px;
+}
+.menu-name > input {
+  padding: 5px 10px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  font-size: 20px;
+  background-color: pink;
+  border: 2px dotted #fff;
+  border-radius: 5px;
+  outline: none;
+}
+.hole {
+  flex: 1 0 33.33%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hole::after {
+  content: "";
+  display: block;
+  background: url(dirt.svg) bottom center no-repeat;
+  width: 100%;
+  height: 70px;
+  background-size: contain;
+  z-index: 2;
+  position: absolute;
+  bottom: -30px;
+}
+
+.mole {
+  background: url(mole.svg) bottom center no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: 50%;
+  transition: top 600ms;
+  top: 100%;
+}
+.hole.up .mole {
+  top: 0;
+}
+.difficulty {
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+.btn {
+  font-family: "Amatic SC", cursive;
+  margin: 0 20px;
+  font-weight: 700;
+  font-size: 25px;
+  background-color: pink;
+  border: 2px dotted #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.start:hover,
+.results:hover {
+  border-radius: 10px;
+}
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 15;
+}
+.popup {
+  display: none;
+  text-align: center;
+  position: fixed;
+  padding: 50px 80px;
+  background-color: #ffc600;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 460px;
+  z-index: 20;
+}
+.popup-result > span {
+  font-size: 40px;
+  font-weight: 700;
+}
+.table-results-wrap > table {
+  font-size: 25px;
+}
+.popup-result {
+  height: 100px;
+}
+
+.warning {
+  display: none;
+  color: red;
+  font-size: 30px;
+  font-weight: 700;
+}
+.table-results-wrap {
+  display: none;
+  text-align: center;
+  position: fixed;
+  padding: 50px 80px;
+  background-color: #ffc600;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 460px;
+  z-index: 20;
+}
+.popup-show {
+  display: inline-block;
+}
